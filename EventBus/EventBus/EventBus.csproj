@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>BuildingBlocks.EventBus</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>    
+  </ItemGroup>
+
+</Project>

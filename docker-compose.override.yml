@@ -1,0 +1,46 @@
+# Arquivo docker-compose.override.yml
+version: '3.4'
+
+services:
+  # serviços da aplicação .net
+  workerservice:
+    environment:
+    # definir ambiente
+      - ASPNETCORE_ENVIROMENT=Development
+    # conexão com banco de dados
+      - ConnectionString=Server=sqldata;Database=Microsoft.eShopOnContainers.Services.CatalogDb;User Id=sa;Password=Pass@word
+      - ASPNETCORE_URLS=http://0.0.0.0:5000
+    # conexão com RabbitMQ
+      - EventBusConnection=rabbitmq
+      - EventBusUserName=admin
+      - EventBusPassword=admin
+    # Porta da nossa aplicação
+      - PORT=5000
+
+    # Porta do container 5000 porta de saida 80
+    ports:
+      - "5000:80"
+    #volumes:
+    #  - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+  
+  # sqldata:
+  #   environment:
+  #     - SA_PASSWORD=Pass@word
+  #     - ACCEPT_EULA=Y
+  #   ports:
+  #     - "5433:1433"
+  #   volumes:
+  #     - D:/projetos/worker-service:/var/opt/mssql
+    
+  rabbitmq:
+    # container_name: 'rabbitmq'
+    # user pass rabbit guest
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+  
+  seq:
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - "5340:80"

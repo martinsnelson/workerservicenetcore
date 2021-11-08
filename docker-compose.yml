@@ -1,0 +1,28 @@
+# arquivo docker-compose.yml
+version: '3.4'
+
+services:
+  # imagem da nodda aplicação
+  workerservice:
+    # old
+    # image: ${DOCKER_REGISTRY-}workerservice
+    image: ${DOCKER_REGISTRY:-cbarato}/workerservice:${PLATFORM:-linux}-${TAG:-latest}    
+    build:
+      context: .
+      dockerfile: Dockerfile
+  # caso você dependa do sql server ou rabbitmq no seu projeto adicionar depends_on
+    # depends_on:
+    #   - sqldata
+    #   - rabbitmq
+  
+  # imagem docker do RabbitMQ
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+
+  # imagem docker do Sql Server
+  sqldata:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+  
+  # imagem docker do Seq centralizador de log
+  seq:
+    image: datalust/seq:latest
